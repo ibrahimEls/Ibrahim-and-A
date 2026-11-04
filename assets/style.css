@@ -199,7 +199,7 @@ p { margin: 0; }
 /* ---------- Hero: the jharokha arch ---------- */
 .hero { padding: 26px var(--gutter) 70px; text-align: center; }
 .hero .bismillah { font-size: 28px; margin: 0 auto; }
-.hero .bismillah-translation { margin: 2px auto 30px; font-size: 17px; }
+.hero .bismillah-translation { margin: 0 auto 20px; font-size: 17px; }
 
 .arch {
   position: relative;
@@ -218,13 +218,14 @@ p { margin: 0; }
   border-left: 8px solid var(--cobalt-deep);
   border-right: 8px solid var(--cobalt-deep);
   border-bottom: 4px solid var(--gold);
-  margin-top: -2px;
+  margin-top: -16%;   /* lift the content into the empty lower part of the arch head */
+  position: relative;
   padding: 0 14px 12px;
 }
 .arch-inner {
   border-left: 1.6px solid var(--gold);
   border-right: 1.6px solid var(--gold);
-  padding: 0 22px 44px;
+  padding: 0 22px 34px;
   margin-top: -2px;
 }
 .arch-base {
@@ -234,7 +235,7 @@ p { margin: 0; }
     var(--cobalt-deep);
   margin: 0 0;
 }
-.arch-body .caption { margin-bottom: 26px; }
+.arch-body .caption { margin-bottom: 14px; }
 
 .names { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .names .script {
@@ -259,7 +260,7 @@ p { margin: 0; }
 .date-row {
   display: flex; align-items: center; justify-content: center;
   gap: 22px;
-  margin: 38px auto 4px;
+  margin: 26px auto 4px;
 }
 .date-row .side {
   font-family: var(--font-sans);
@@ -283,7 +284,7 @@ p { margin: 0; }
   color: var(--ink);
 }
 .place {
-  margin-top: 22px;
+  margin-top: 16px;
   font-family: var(--font-body);
   font-size: 16px;
   color: var(--ink);
@@ -292,7 +293,7 @@ p { margin: 0; }
 .countdown {
   display: flex; justify-content: center; flex-wrap: wrap;
   gap: 8px 30px;
-  margin: 34px auto 36px;
+  margin: 24px auto 26px;
 }
 .countdown .unit { display: flex; flex-direction: column; align-items: center; min-width: 64px; }
 .countdown .num {
@@ -442,16 +443,16 @@ p { margin: 0; }
   .site-nav a { font-size: 12px; letter-spacing: 2.6px; }
   .hero { padding-bottom: 54px; }
   .hero .bismillah { font-size: 22px; }
-  .hero .bismillah-translation { font-size: 15px; margin-bottom: 24px; }
+  .hero .bismillah-translation { font-size: 15px; margin-bottom: 16px; }
   .arch { margin-top: 6px; }
   .arch-body { padding: 0 8px 10px; border-left-width: 6px; border-right-width: 6px; }
-  .arch-inner { padding: 0 10px 34px; }
+  .arch-inner { padding: 0 10px 26px; }
   .names .script { font-size: 18px; letter-spacing: .1em; padding-left: .1em; }
-  .date-row { gap: 12px; margin-top: 30px; }
+  .date-row { gap: 12px; margin-top: 22px; }
   .date-row .side { min-width: 70px; font-size: 11px; letter-spacing: 2.4px; }
   .date-row .numeral { font-size: 52px; }
   .date-month { font-size: 13px; letter-spacing: 3.5px; }
-  .countdown { gap: 6px 14px; margin: 28px auto 30px; }
+  .countdown { gap: 6px 14px; margin: 20px auto 22px; }
   .countdown .unit { min-width: 56px; }
   .countdown .num { font-size: 32px; }
   .countdown .lbl .long { display: none; }
