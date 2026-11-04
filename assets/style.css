@@ -69,7 +69,7 @@ p { margin: 0; }
 .top { position: relative; }
 .lantern {
   position: absolute; top: 0;
-  width: clamp(165px, 16.5vw, 225px); height: auto;
+  width: clamp(138px, 13.75vw, 188px); height: auto;
   pointer-events: none;
   opacity: 0; animation: lantern-in 1.4s ease .6s forwards;
 }
