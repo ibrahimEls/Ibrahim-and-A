@@ -1,3 +1,5 @@
+% !TEX program = xelatex
+% !TEX encoding = UTF-8
 % ===========================================================================
 %  Ibrahim & Asma wedding website, editable text source
 %
@@ -5,7 +7,8 @@
 %  text, then run   python3 tools/build_site.py   (or hand the file back)
 %  and index.html, registry.html and rsvp.html are rewritten from it.
 %
-%  Compile with xelatex to see the text laid out page by page as a proof.
+%  Compile with xelatex to see the text laid out page by page as a proof
+%  (pdflatex also works, but shows a note in place of the Arabic lines).
 %
 %  Rules:
 %    - Each \command{...} below is one piece of the site. Change the words
@@ -56,10 +59,16 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{xcolor}
 \usepackage{parskip}
-\usepackage{fontspec}
-\setmainfont{Baskerville}
-\newfontfamily\arabicfont[Script=Arabic]{Geeza Pro}
-\usepackage{bidi}
+\usepackage{iftex}
+\ifXeTeX
+  \usepackage{fontspec}
+  \setmainfont{Baskerville}
+  \newfontfamily\arabicfont[Script=Arabic]{Geeza Pro}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{textcomp}
+\fi
 
 \definecolor{lapis}{HTML}{1F4690}
 \definecolor{gold}{HTML}{8A6A2C}
@@ -68,7 +77,12 @@
 % how each piece is drawn on paper (the website has its own styling)
 \newcommand{\lbl}[1]{{\footnotesize\color{gold}\textsc{#1}}\par}
 \newcommand{\pagehead}[1]{\clearpage\section*{#1}}
-\newcommand{\ar}[1]{{\large\color{lapis}\RL{\arabicfont #1}}\par}
+\ifXeTeX
+  \usepackage{bidi}
+  \newcommand{\ar}[1]{{\large\color{lapis}\RL{\arabicfont #1}}\par}
+\else
+  \newcommand{\ar}[1]{{\small\color{muted}[Arabic line: compile with xelatex to see it]}\par}
+\fi
 
 \newcommand{\sitename}[2]{\lbl{wordmark}{\Large\itshape #1 \textcolor{gold}{\&} #2}\par\medskip}
 \newcommand{\navlabels}[3]{\lbl{menu}\textsc{#1 \quad #2 \quad #3}\par\medskip}
