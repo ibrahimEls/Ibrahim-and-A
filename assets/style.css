@@ -498,6 +498,7 @@ p { margin: 0; }
   padding-right: 36px;
 }
 .field textarea { resize: vertical; min-height: 64px; }
+.field .hint { margin-top: 8px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
 .field input:focus, .field select:focus, .field textarea:focus {
   border-color: var(--lapis); background: #fff;
   box-shadow: 0 0 0 3px rgba(31,70,144,.12);

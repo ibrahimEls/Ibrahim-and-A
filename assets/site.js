@@ -79,7 +79,7 @@
 
       var data = {};
       new FormData(form).forEach(function (v, k) { data[k] = String(v).trim(); });
-      if (attendingOnly.hidden) { data.guests = "0"; data.guestNames = ""; data.dietary = ""; }
+      if (attendingOnly.hidden) { data.guests = "0"; data.guestNames = ""; }
 
       fetch(url, { method: "POST", body: JSON.stringify(data) })
         .then(function (r) { return r.json(); })

@@ -34,7 +34,7 @@
   <!-- On-site form: shown when config.js has rsvpScriptUrl -->
   <form class="panel rsvp-form reveal is-visible" data-delay="2" id="rsvp-form" novalidate hidden>
     <h2 class="display">Reply online</h2>
-    <p class="sub">Please reply once for everyone in your party.</p>
+    <p class="sub">Please reply once for your party. Each invitation is for up to two guests.</p>
 
     <div class="field">
       <label for="f-name">Your name</label>
@@ -55,16 +55,13 @@
       <div class="field">
         <label for="f-guests">Number of guests, including you</label>
         <select id="f-guests" name="guests">
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+          <option>1</option><option>2</option>
         </select>
+        <p class="hint">Each invitation covers a maximum of two guests. Thank you for understanding.</p>
       </div>
       <div class="field">
         <label for="f-guestnames">Names of everyone attending</label>
         <textarea id="f-guestnames" name="guestNames" rows="2"></textarea>
-      </div>
-      <div class="field">
-        <label for="f-dietary">Dietary needs <span class="opt">(optional)</span></label>
-        <input id="f-dietary" name="dietary" type="text">
       </div>
     </div>
 

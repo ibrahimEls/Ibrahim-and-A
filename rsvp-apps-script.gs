@@ -16,7 +16,7 @@
 var SHEET_NAME = 'RSVPs';
 var NOTIFY_EMAIL = '';   // e.g. 'you@example.com' to get an email for each RSVP; leave '' for none
 
-var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Guest names', 'Dietary notes', 'Message'];
+var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Guest names', 'Message'];
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -32,14 +32,14 @@ function doPost(e) {
       sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
       sheet.setFrozenRows(1);
     }
+    var guests = Math.min(2, Math.max(0, parseInt(data.guests, 10) || 0)); // two per invitation
     var row = [
       new Date(),
       clean_(data.name),
       clean_(data.contact),
       clean_(data.attending),
-      clean_(data.guests),
+      guests,
       clean_(data.guestNames),
-      clean_(data.dietary),
       clean_(data.message)
     ];
     sheet.appendRow(row);
