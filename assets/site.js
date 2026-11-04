@@ -166,6 +166,23 @@
     tick();
   }
 
+  /* ---- Popups (<dialog>) ---- */
+  document.querySelectorAll("[data-open]").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      var dlg = document.getElementById(btn.getAttribute("data-open"));
+      if (!dlg) return;
+      if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+      var close = dlg.querySelector("[data-close]");
+      if (close) close.focus();
+    });
+  });
+  document.querySelectorAll("dialog.modal").forEach(function (dlg) {
+    function closeIt() { if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
+    dlg.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", closeIt); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) closeIt(); }); /* click on the backdrop */
+  });
+
   /* ---- Reveal on load / on scroll ---- */
   var items = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {

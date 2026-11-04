@@ -276,12 +276,26 @@ def page_index(T):
     <div class="rule"><span class="diamond"></span></div>
     <h2 class="display" style="margin-top:22px">{g_title}</h2>
     <p class="lead">{g_text}</p>
-    <a class="btn" href="registry.html">{g_btn}</a>
+    <button class="btn" type="button" data-open="registry-modal">{g_btn}</button>
   </section>
 
 </main>
 </div>
+{registry_modal(T)}
 {footer(T)}'''
+
+def registry_modal(T):
+    p_title, p_sub, p_btn, p_none, p_fine = T["registrypanel"]
+    return f'''<dialog class="modal" id="registry-modal" aria-labelledby="registry-modal-title">
+  <div class="panel modal-panel">
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+    <div class="icon">{GIFT_ICON}</div>
+    <h2 class="display" id="registry-modal-title">{p_title}</h2>
+    <p class="sub">{p_sub}</p>
+    <a class="btn" href="#" data-link="cashFund" data-fallback="{p_none}" data-fallback-as="details">{p_btn}</a>
+    <p class="fine">{p_fine}</p>
+  </div>
+</dialog>'''
 
 def page_registry(T):
     title, desc = T["meta"]["registry"]
@@ -296,15 +310,9 @@ def page_registry(T):
   <h1 class="display reveal is-visible">{big}</h1>
   <div class="rule reveal is-visible"><span class="diamond"></span></div>
   <p class="lead reveal is-visible" data-delay="1">{lead}</p>
-
-  <div class="panel reveal is-visible" data-delay="2">
-    <div class="icon">{GIFT_ICON}</div>
-    <h2 class="display">{p_title}</h2>
-    <p class="sub">{p_sub}</p>
-    <a class="btn" href="#" data-link="cashFund" data-fallback="{p_none}" data-fallback-as="details">{p_btn}</a>
-    <p class="fine">{p_fine}</p>
-  </div>
+  <p class="reveal is-visible" data-delay="2" style="margin-top:30px"><button class="btn" type="button" data-open="registry-modal">{p_btn}</button></p>
 </main>
+{registry_modal(T)}
 {footer(T)}'''
 
 def page_rsvp(T):

@@ -111,13 +111,13 @@ p { margin: 0; }
   letter-spacing: .01em;
 }
 .wordmark .amp { color: var(--gold); font-weight: 400; margin: 0 .12em; }
-.site-nav { display: flex; gap: 34px; }
+.site-nav { display: flex; gap: 44px; }
 .site-nav a {
   position: relative;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 19.5px;
   font-weight: 500;
-  letter-spacing: 3.4px;
+  letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--ink);
   padding: 6px 2px 12px;
@@ -411,6 +411,27 @@ p { margin: 0; }
 .embed iframe { width: 100%; height: 1400px; border: 0; display: block; }
 .embed[hidden] { display: none; }
 
+/* ---------- Popup ---------- */
+.modal {
+  border: 0; padding: 0; background: transparent;
+  width: min(520px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: visible;
+}
+.modal::backdrop { background: rgba(27,35,64,.45); backdrop-filter: blur(3px); }
+.modal[open] { animation: modal-in .3s ease; }
+@keyframes modal-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.modal-panel { margin: 0; max-width: none; text-align: center; }
+.modal-close {
+  position: absolute; top: 14px; right: 14px; z-index: 1;
+  width: 36px; height: 36px; border: 0; border-radius: 50%;
+  background: var(--tile-white); color: var(--ink-soft);
+  font: 24px/36px var(--font-serif); cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.modal-close:hover { background: var(--lapis); color: #fff; }
+body:has(dialog.modal[open]) { overflow: hidden; }
+
 /* ---------- Footer ---------- */
 .site-footer { text-align: center; padding: 0 0 0; }
 .site-footer .inner { max-width: var(--max); margin: 0 auto; padding: 44px var(--gutter) 40px; }
@@ -442,8 +463,8 @@ p { margin: 0; }
 @media (max-width: 600px) {
   .site-header { padding-top: 22px; }
   .wordmark { font-size: 36px; }
-  .site-nav { gap: 22px; }
-  .site-nav a { font-size: 12px; letter-spacing: 2.6px; }
+  .site-nav { gap: 26px; }
+  .site-nav a { font-size: 18px; letter-spacing: 3.6px; }
   .hero { padding-bottom: 54px; }
   .hero .bismillah { font-size: 22px; }
   .hero .bismillah-translation { font-size: 15px; margin-bottom: 16px; }

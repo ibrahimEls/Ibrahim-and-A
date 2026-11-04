@@ -128,11 +128,26 @@
     <div class="rule"><span class="diamond"></span></div>
     <h2 class="display" style="margin-top:22px">No boxed gifts, please</h2>
     <p class="lead">Your presence is present enough. If you would like to give something, you can find the details on our registry page.</p>
-    <a class="btn" href="registry.html">Registry</a>
+    <button class="btn" type="button" data-open="registry-modal">Registry</button>
   </section>
 
 </main>
 </div>
+<dialog class="modal" id="registry-modal" aria-labelledby="registry-modal-title">
+  <div class="panel modal-panel">
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+    <div class="icon"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="10" y="24" width="60" height="42" rx="3"/>
+  <path d="M10 28 L40 50 L70 28"/>
+  <path d="M10 64 L31 44 M70 64 L49 44"/>
+  <path d="M40 24 C40 24 29 17 29 11.5 C29 7.5 32.5 5.5 35 7 C37 8.2 40 11 40 11 C40 11 43 8.2 45 7 C47.5 5.5 51 7.5 51 11.5 C51 17 40 24 40 24 Z" fill="#d9a93a" stroke="#b08d47" stroke-width="1.4"/>
+</svg></div>
+    <h2 class="display" id="registry-modal-title">Newlywed fund</h2>
+    <p class="sub">A gift.</p>
+    <a class="btn" href="#" data-link="cashFund" data-fallback="Zelle@8322476842,Venmo@Ibrahim-Elsharkawy" data-fallback-as="details">Give a gift</a>
+    <p class="fine">Thank you.</p>
+  </div>
+</dialog>
 <footer class="site-footer">
   <div class="inner">
     <div class="wordmark">Ibrahim <span class="amp">&amp;</span> Asma</div>
