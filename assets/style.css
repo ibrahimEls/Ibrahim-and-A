@@ -22,7 +22,7 @@
   --ochre: #d9a93a;
   --lotus: #7b8fdc;
 
-  --font-script: "Oooh Baby", "Bradley Hand", cursive;
+  --font-script: "Forum", "Cormorant Garamond", Georgia, serif;
   --font-serif: "Cormorant Garamond", "Georgia", serif;
   --font-body: "Libre Baskerville", "Georgia", serif;
   --font-sans: "Jost", "Futura", "Helvetica Neue", sans-serif;
@@ -243,11 +243,12 @@ p { margin: 0; }
 .names .script {
   font-family: var(--font-script);
   font-weight: 400;
-  font-size: 50px;
-  line-height: 1.4;
-  letter-spacing: .3em;
-  color: var(--ink);
-  padding-left: .32em; /* balance the trailing tracking */
+  font-size: 31px;
+  line-height: 1.35;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--navy);
+  padding-left: .16em; /* balance the trailing tracking */
   white-space: nowrap;
 }
 .names .and {
@@ -448,7 +449,7 @@ p { margin: 0; }
   .arch { margin-top: 26px; }
   .arch-body { padding: 0 8px 10px; border-left-width: 6px; border-right-width: 6px; }
   .arch-inner { padding: 0 10px 34px; }
-  .names .script { font-size: 33px; letter-spacing: .22em; padding-left: .22em; }
+  .names .script { font-size: 18px; letter-spacing: .1em; padding-left: .1em; }
   .date-row { gap: 12px; margin-top: 30px; }
   .date-row .side { min-width: 70px; font-size: 11px; letter-spacing: 2.4px; }
   .date-row .numeral { font-size: 52px; }
