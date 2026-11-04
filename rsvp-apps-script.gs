@@ -47,7 +47,7 @@ function doPost(e) {
     if (NOTIFY_EMAIL) {
       MailApp.sendEmail({
         to: NOTIFY_EMAIL,
-        subject: 'RSVP: ' + row[1] + ' — ' + row[3],
+        subject: 'RSVP: ' + row[1] + ', ' + row[3],
         body: HEADERS.map(function (h, i) { return h + ': ' + row[i]; }).join('\n')
       });
     }

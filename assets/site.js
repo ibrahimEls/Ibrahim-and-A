@@ -1,4 +1,4 @@
-/* Ibrahim & Asma — site behaviour: countdown, config links, reveal animation. */
+/* Ibrahim & Asma site behaviour: countdown, config links, reveal animation. */
 (function () {
   var cfg = window.WEDDING_CONFIG || {};
 
