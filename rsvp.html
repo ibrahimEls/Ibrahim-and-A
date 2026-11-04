@@ -31,7 +31,64 @@
   <div class="rule reveal is-visible"><span class="diamond"></span></div>
   <p class="lead reveal is-visible" data-delay="1">Friday, December 25, 2026 at 7:00 PM &middot; The Pearl Event Center, Webster, TX.<br>Kindly reply by <strong><span data-text="rsvpDeadline">December 3</span></strong>.</p>
 
-  <div class="panel reveal is-visible" data-delay="2">
+  <!-- On-site form: shown when config.js has rsvpScriptUrl -->
+  <form class="panel rsvp-form reveal is-visible" data-delay="2" id="rsvp-form" novalidate hidden>
+    <h2 class="display">Reply online</h2>
+    <p class="sub">Please reply once for everyone in your party.</p>
+
+    <div class="field">
+      <label for="f-name">Your name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="f-contact">Email or phone</label>
+      <input id="f-contact" name="contact" type="text" autocomplete="email" required>
+    </div>
+
+    <fieldset class="field choice">
+      <legend>Will you be joining us?</legend>
+      <label class="pill"><input type="radio" name="attending" value="Joyfully accepts" required><span>Joyfully accepts</span></label>
+      <label class="pill"><input type="radio" name="attending" value="Regretfully declines"><span>Regretfully declines</span></label>
+    </fieldset>
+
+    <div class="only-attending">
+      <div class="field">
+        <label for="f-guests">Number of guests, including you</label>
+        <select id="f-guests" name="guests">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-guestnames">Names of everyone attending</label>
+        <textarea id="f-guestnames" name="guestNames" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label for="f-dietary">Dietary needs <span class="opt">(optional)</span></label>
+        <input id="f-dietary" name="dietary" type="text">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-message">A note for the couple <span class="opt">(optional)</span></label>
+      <textarea id="f-message" name="message" rows="3"></textarea>
+    </div>
+
+    <!-- honeypot: humans never see this -->
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+
+    <button class="btn" type="submit">Send RSVP</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <!-- Thank-you panel, shown after a successful submission -->
+  <div class="panel rsvp-thanks reveal is-visible" id="rsvp-thanks" hidden>
+    <h2 class="display">Thank you</h2>
+    <p class="sub" id="rsvp-thanks-text">Your reply has been received. We can't wait to celebrate with you.</p>
+    <div class="rule" style="margin-top:22px"><span class="diamond"></span></div>
+  </div>
+
+  <!-- Fallback: Google Form link, used only when rsvpScriptUrl is empty -->
+  <div class="panel reveal is-visible" data-delay="2" id="rsvp-fallback">
     <h2 class="display">Reply online</h2>
     <p class="sub">The form takes about a minute. Please reply for everyone in your party.</p>
     <a class="btn" href="#" data-link="rsvpForm" data-fallback="Form coming soon">Open the RSVP form</a>

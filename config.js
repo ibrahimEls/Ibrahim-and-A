@@ -4,9 +4,13 @@
    ============================================================ */
 window.WEDDING_CONFIG = {
 
-  /* Google Form for RSVPs. Paste the "Send" > link, e.g.
-     "https://docs.google.com/forms/d/e/XXXXXXXX/viewform"
-     Leave empty ("") until the form is ready. */
+  /* RSVP form on the site -> Google Sheet.
+     Paste the Apps Script "Web app" URL (ends in /exec) from
+     rsvp-apps-script.gs. Leave empty ("") to fall back to rsvpFormUrl. */
+  rsvpScriptUrl: "",
+
+  /* Fallback: a Google Form link, used only if rsvpScriptUrl is empty.
+     e.g. "https://docs.google.com/forms/d/e/XXXXXXXX/viewform" */
   rsvpFormUrl: "",
 
   /* Cash fund link (Venmo, PayPal, Zelle page, etc.).

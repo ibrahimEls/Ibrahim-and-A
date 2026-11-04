@@ -34,7 +34,75 @@
       }
     }
   }
-  applyLink("rsvpFormUrl", "[data-link='rsvpForm']", "#rsvp-embed");
+  /* ---- RSVP: on-site form -> Google Sheet (Apps Script), else Google Form link ---- */
+  var scriptUrl = (cfg.rsvpScriptUrl || "").trim();
+  var form = document.getElementById("rsvp-form");
+  var fallback = document.getElementById("rsvp-fallback");
+  if (form && scriptUrl) {
+    form.hidden = false;
+    if (fallback) fallback.hidden = true;
+    var embedWrap = document.getElementById("rsvp-embed");
+    if (embedWrap) embedWrap.hidden = true;
+    setupRsvpForm(form, scriptUrl);
+  } else {
+    applyLink("rsvpFormUrl", "[data-link='rsvpForm']", "#rsvp-embed");
+  }
+
+  function setupRsvpForm(form, url) {
+    var status = form.querySelector(".form-status");
+    var button = form.querySelector("button[type=submit]");
+    var attendingOnly = form.querySelector(".only-attending");
+    var radios = form.querySelectorAll("input[name=attending]");
+
+    function syncAttending() {
+      var val = (form.querySelector("input[name=attending]:checked") || {}).value || "";
+      var declining = /declin/i.test(val);
+      attendingOnly.hidden = declining;
+      form.querySelector("#f-guestnames").required = !declining && val !== "";
+    }
+    radios.forEach(function (r) { r.addEventListener("change", syncAttending); });
+    syncAttending();
+
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      form.classList.add("was-validated");
+      if (!form.checkValidity()) {
+        status.textContent = "Please fill in the highlighted fields.";
+        status.classList.add("error");
+        var bad = form.querySelector(":invalid");
+        if (bad && bad.focus) bad.focus();
+        return;
+      }
+      status.classList.remove("error");
+      status.textContent = "Sending\u2026";
+      button.disabled = true;
+
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = String(v).trim(); });
+      if (attendingOnly.hidden) { data.guests = "0"; data.guestNames = ""; data.dietary = ""; }
+
+      fetch(url, { method: "POST", body: JSON.stringify(data) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || res.ok !== true) throw new Error(res && res.error ? res.error : "Unexpected reply");
+          form.hidden = true;
+          var thanks = document.getElementById("rsvp-thanks");
+          var text = document.getElementById("rsvp-thanks-text");
+          if (/declin/i.test(data.attending) && text) {
+            text.textContent = "Your reply has been received. We'll miss you, and thank you for letting us know.";
+          }
+          thanks.hidden = false;
+          thanks.scrollIntoView({ behavior: "smooth", block: "center" });
+        })
+        .catch(function (err) {
+          status.classList.add("error");
+          status.textContent = "Sorry, something went wrong sending your reply. Please try again in a moment.";
+          button.disabled = false;
+          if (window.console) console.error("RSVP submit failed:", err);
+        });
+    });
+  }
+
   applyLink("cashFundUrl", "[data-link='cashFund']");
   document.querySelectorAll("[data-text='rsvpDeadline']").forEach(function (el) {
     if (cfg.rsvpDeadline) el.textContent = cfg.rsvpDeadline;
