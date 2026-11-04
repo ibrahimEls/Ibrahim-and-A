@@ -69,7 +69,7 @@ p { margin: 0; }
 .top { position: relative; }
 .lantern {
   position: absolute; top: 0;
-  width: clamp(110px, 11vw, 150px); height: auto;
+  width: clamp(165px, 16.5vw, 225px); height: auto;
   pointer-events: none;
   opacity: 0; animation: lantern-in 1.4s ease .6s forwards;
 }
@@ -402,6 +402,9 @@ p { margin: 0; }
 .panel .display { font-size: 32px; }
 .panel .sub { margin-top: 10px; font-family: var(--font-serif); font-style: italic; font-size: 19px; color: var(--ink-soft); line-height: 1.45; }
 .panel .btn { margin-top: 28px; }
+.panel .pay-details { margin-top: 26px; font-family: var(--font-body); font-size: 18px; line-height: 1.5; color: var(--navy); }
+.panel .pay-details span { display: block; padding: 8px 0; border-top: 1px solid #e3e8ee; }
+.panel .pay-details span:first-child { border-top: 0; }
 .panel .fine { margin-top: 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
 
 .embed { margin-top: 36px; background: var(--paper); padding: 10px; box-shadow: 0 30px 50px -34px rgba(27,35,64,.4); }

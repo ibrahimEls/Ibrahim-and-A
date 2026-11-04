@@ -11,6 +11,17 @@
         el.setAttribute("target", "_blank");
         el.setAttribute("rel", "noopener");
         el.removeAttribute("aria-disabled");
+      } else if (el.getAttribute("data-fallback-as") === "details" && el.getAttribute("data-fallback")) {
+        /* No link: show the fallback text as readable lines (e.g. "Zelle ..., Venmo ...") instead of a button */
+        var box = document.createElement("div");
+        box.className = "pay-details";
+        el.getAttribute("data-fallback").split(/\s*,\s*/).forEach(function (line) {
+          if (!line) return;
+          var p = document.createElement("span");
+          p.textContent = line;
+          box.appendChild(p);
+        });
+        el.parentNode.replaceChild(box, el);
       } else {
         el.setAttribute("aria-disabled", "true");
         el.setAttribute("href", "#");
@@ -54,11 +65,15 @@
     var attendingOnly = form.querySelector(".only-attending");
     var radios = form.querySelectorAll("input[name=attending]");
 
+    function isDeclining() {
+      var checked = form.querySelector("input[name=attending]:checked");
+      return !!checked && checked.getAttribute("data-role") === "decline";
+    }
     function syncAttending() {
-      var val = (form.querySelector("input[name=attending]:checked") || {}).value || "";
-      var declining = /declin/i.test(val);
+      var any = !!form.querySelector("input[name=attending]:checked");
+      var declining = isDeclining();
       attendingOnly.hidden = declining;
-      form.querySelector("#f-guestnames").required = !declining && val !== "";
+      form.querySelector("#f-guestnames").required = any && !declining;
     }
     radios.forEach(function (r) { r.addEventListener("change", syncAttending); });
     syncAttending();
@@ -100,7 +115,7 @@
           form.hidden = true;
           var thanks = document.getElementById("rsvp-thanks");
           var text = document.getElementById("rsvp-thanks-text");
-          if (/declin/i.test(data.attending) && text && thanks.getAttribute("data-text-declined")) {
+          if (isDeclining() && text && thanks.getAttribute("data-text-declined")) {
             text.textContent = thanks.getAttribute("data-text-declined");
           }
           thanks.hidden = false;

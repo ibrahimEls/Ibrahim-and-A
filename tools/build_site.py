@@ -68,6 +68,9 @@ def tex_to_html(s, raw=False):
     """LaTeX escapes -> plain text -> HTML. raw=True keeps a URL untouched except escapes."""
     s = s.strip()
     s = s.replace("\\\\", "\0BR\0")
+    s = s.replace("\\$", "\0DOLLAR\0")
+    s = s.replace("$", "")                          # $...$ math delimiters carry no meaning on the site
+    s = s.replace("\0DOLLAR\0", "$")
     for a, b in (("\\&", "&"), ("\\%", "%"), ("\\#", "#"), ("\\_", "_"), ("\\$", "$"),
                  ("``", "\u201c"), ("''", "\u201d"), ("\\ldots", "\u2026"), ("~", "\u00a0")):
         s = s.replace(a, b)
@@ -273,7 +276,7 @@ def page_index(T):
     <div class="rule"><span class="diamond"></span></div>
     <h2 class="display" style="margin-top:22px">{g_title}</h2>
     <p class="lead">{g_text}</p>
-    <a class="btn btn--ghost" href="registry.html">{g_btn}</a>
+    <a class="btn" href="registry.html">{g_btn}</a>
   </section>
 
 </main>
@@ -298,7 +301,7 @@ def page_registry(T):
     <div class="icon">{GIFT_ICON}</div>
     <h2 class="display">{p_title}</h2>
     <p class="sub">{p_sub}</p>
-    <a class="btn" href="#" data-link="cashFund" data-fallback="{p_none}">{p_btn}</a>
+    <a class="btn" href="#" data-link="cashFund" data-fallback="{p_none}" data-fallback-as="details">{p_btn}</a>
     <p class="fine">{p_fine}</p>
   </div>
 </main>
@@ -347,8 +350,8 @@ def page_rsvp(T):
 
     <fieldset class="field choice">
       <legend>{l_q}</legend>
-      <label class="pill"><input type="radio" name="attending" value="{l_yes}" required><span>{l_yes}</span></label>
-      <label class="pill"><input type="radio" name="attending" value="{l_no}"><span>{l_no}</span></label>
+      <label class="pill"><input type="radio" name="attending" value="{l_yes}" data-role="accept" required><span>{l_yes}</span></label>
+      <label class="pill"><input type="radio" name="attending" value="{l_no}" data-role="decline"><span>{l_no}</span></label>
     </fieldset>
 
     <div class="only-attending">
