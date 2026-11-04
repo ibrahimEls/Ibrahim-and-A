@@ -16,34 +16,10 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="page-home">
-<div class="crown" aria-hidden="true">
-  <svg viewBox="0 0 1200 66" preserveAspectRatio="none" focusable="false">
-    <defs>
-      <pattern id="tile-h" width="44" height="44" patternUnits="userSpaceOnUse">
-        <rect width="44" height="44" fill="#1d43a8"/>
-        <path d="M22,0 L44,22 L22,44 L0,22 Z" fill="#2a5cc8"/>
-        <path d="M-9,0 L0,-9 L9,0 L0,9 Z M35,0 L44,-9 L53,0 L44,9 Z M-9,44 L0,35 L9,44 L0,53 Z M35,44 L44,35 L53,44 L44,53 Z" fill="#33a9c6"/>
-        <path d="M22,8 L26,18 L36,22 L26,26 L22,36 L18,26 L8,22 L18,18 Z" fill="none" stroke="#f4f8fb" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M22,12 L32,22 L22,32 L12,22 Z" fill="none" stroke="#f4f8fb" stroke-width="1" opacity=".8"/>
-        <circle cx="22" cy="22" r="2.6" fill="#d9a93a"/>
-      </pattern>
-      <pattern id="niche-h" width="40" height="18" patternUnits="userSpaceOnUse">
-        <rect width="40" height="18" fill="#33a9c6"/>
-        <path d="M7,18 L7,9 C7,4 14,3 20,0 C26,3 33,4 33,9 L33,18 Z" fill="#0f2a75"/>
-        <path d="M20,5 C17,8 17,11 20,13 C23,11 23,8 20,5 Z" fill="#f4f8fb" opacity=".9"/>
-        <circle cx="20" cy="16" r="1.4" fill="#d9a93a"/>
-      </pattern>
-      <pattern id="bead-h" width="14" height="6" patternUnits="userSpaceOnUse">
-        <rect width="14" height="6" fill="#0f2a75"/>
-        <rect x="2" y="2" width="6" height="2" fill="#d9a93a"/>
-      </pattern>
-    </defs>
-    <rect x="0" y="0" width="1200" height="6" fill="url(#bead-h)"/>
-    <rect x="0" y="6" width="1200" height="36" fill="url(#tile-h)"/>
-    <rect x="0" y="42" width="1200" height="6" fill="url(#bead-h)"/>
-    <rect x="0" y="48" width="1200" height="18" fill="url(#niche-h)"/>
-  </svg>
-</div>
+<div class="crown" aria-hidden="true"><img src="assets/art/crown.svg" alt="" width="944" height="172" decoding="async"></div>
+<div class="top">
+<img class="lantern lantern--left" src="assets/art/lantern-left.svg" alt="" aria-hidden="true" decoding="async">
+<img class="lantern lantern--right" src="assets/art/lantern-right.svg" alt="" aria-hidden="true" decoding="async">
 <header class="site-header reveal is-visible">
   <a class="wordmark" href="index.html">Ibrahim <span class="amp">&amp;</span> Asma</a>
   <nav class="site-nav" aria-label="Main">
@@ -58,6 +34,9 @@
     <p class="arabic bismillah reveal" lang="ar" data-delay="1">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
     <p class="translation reveal" data-delay="1">In the name of God, the Most Gracious, the Most Merciful</p>
 
+    <div class="arch-wrap">
+    <img class="bouquet bouquet--left reveal" data-delay="3" src="assets/art/bouquet-left.svg" alt="" aria-hidden="true" decoding="async" loading="lazy">
+    <img class="bouquet bouquet--right reveal" data-delay="3" src="assets/art/bouquet-right.svg" alt="" aria-hidden="true" decoding="async" loading="lazy">
     <div class="arch reveal" data-delay="2">
       <svg class="arch-head" viewBox="0 -78 600 338" aria-hidden="true" focusable="false">
   <defs>
@@ -79,19 +58,7 @@
   <!-- tile ribbon -->
   <path class="arch-ribbon" d="M4,262 L4,150 C4,95 60,80 130,62 C215,40 280,36 300,12 C320,36 385,40 470,62 C540,80 596,95 596,150 L596,262"/>
   <path class="arch-beads" d="M4,262 L4,150 C4,95 60,80 130,62 C215,40 280,36 300,12 C320,36 385,40 470,62 C540,80 596,95 596,150 L596,262"/>
-  <!-- apex lotus finial on two pads -->
-  <g class="arch-lotus" transform="translate(300,10)">
-    <ellipse cx="-13" cy="-1" rx="17" ry="5.5" fill="url(#padg)" opacity=".9"/>
-    <ellipse cx="14" cy="1" rx="15" ry="5" fill="url(#padg)" opacity=".85"/>
-    <g>
-      <path d="M0,-6 C-22,-14 -30,-34 -26,-52 C-14,-40 -6,-26 0,-6 Z" fill="url(#petal2)" transform="rotate(-18)"/>
-      <path d="M0,-6 C22,-14 30,-34 26,-52 C14,-40 6,-26 0,-6 Z" fill="url(#petal2)" transform="rotate(18)"/>
-      <path d="M0,-4 C-14,-18 -18,-40 -12,-58 C-4,-44 -1,-26 0,-4 Z" fill="url(#petal)"/>
-      <path d="M0,-4 C14,-18 18,-40 12,-58 C4,-44 1,-26 0,-4 Z" fill="url(#petal)"/>
-      <path d="M0,-2 C-8,-20 -8,-46 0,-66 C8,-46 8,-20 0,-2 Z" fill="url(#petal)"/>
-      <circle cx="0" cy="-8" r="2.2" fill="#e9c25a"/>
-    </g>
-  </g>
+  <image class="arch-finial" href="assets/art/finial.svg" x="241" y="-54" width="118" height="67"/>
 </svg>
       <div class="arch-body">
         <div class="arch-inner">
@@ -121,6 +88,11 @@
         </div>
       </div>
       <div class="arch-base" aria-hidden="true"></div>
+    </div>
+    </div>
+    <div class="bouquets-mobile reveal" aria-hidden="true">
+      <img src="assets/art/bouquet-left.svg" alt="" decoding="async" loading="lazy">
+      <img src="assets/art/bouquet-right.svg" alt="" decoding="async" loading="lazy">
     </div>
   </section>
 
@@ -165,6 +137,7 @@
   </section>
 
 </main>
+</div>
 <footer class="site-footer">
   <div class="inner">
     <div class="wordmark">Ibrahim <span class="amp">&amp;</span> Asma</div>
@@ -175,34 +148,7 @@
       <a href="rsvp.html">RSVP</a>
     </nav>
   </div>
-  <div class="crown" aria-hidden="true">
-  <svg viewBox="0 0 1200 66" preserveAspectRatio="none" focusable="false">
-    <defs>
-      <pattern id="tile-f" width="44" height="44" patternUnits="userSpaceOnUse">
-        <rect width="44" height="44" fill="#1d43a8"/>
-        <path d="M22,0 L44,22 L22,44 L0,22 Z" fill="#2a5cc8"/>
-        <path d="M-9,0 L0,-9 L9,0 L0,9 Z M35,0 L44,-9 L53,0 L44,9 Z M-9,44 L0,35 L9,44 L0,53 Z M35,44 L44,35 L53,44 L44,53 Z" fill="#33a9c6"/>
-        <path d="M22,8 L26,18 L36,22 L26,26 L22,36 L18,26 L8,22 L18,18 Z" fill="none" stroke="#f4f8fb" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M22,12 L32,22 L22,32 L12,22 Z" fill="none" stroke="#f4f8fb" stroke-width="1" opacity=".8"/>
-        <circle cx="22" cy="22" r="2.6" fill="#d9a93a"/>
-      </pattern>
-      <pattern id="niche-f" width="40" height="18" patternUnits="userSpaceOnUse">
-        <rect width="40" height="18" fill="#33a9c6"/>
-        <path d="M7,18 L7,9 C7,4 14,3 20,0 C26,3 33,4 33,9 L33,18 Z" fill="#0f2a75"/>
-        <path d="M20,5 C17,8 17,11 20,13 C23,11 23,8 20,5 Z" fill="#f4f8fb" opacity=".9"/>
-        <circle cx="20" cy="16" r="1.4" fill="#d9a93a"/>
-      </pattern>
-      <pattern id="bead-f" width="14" height="6" patternUnits="userSpaceOnUse">
-        <rect width="14" height="6" fill="#0f2a75"/>
-        <rect x="2" y="2" width="6" height="2" fill="#d9a93a"/>
-      </pattern>
-    </defs>
-    <rect x="0" y="0" width="1200" height="6" fill="url(#bead-f)"/>
-    <rect x="0" y="6" width="1200" height="36" fill="url(#tile-f)"/>
-    <rect x="0" y="42" width="1200" height="6" fill="url(#bead-f)"/>
-    <rect x="0" y="48" width="1200" height="18" fill="url(#niche-f)"/>
-  </svg>
-</div>
+  <div class="ribbon" aria-hidden="true"></div>
 </footer>
 <script src="config.js"></script>
 <script src="assets/site.js" defer></script>

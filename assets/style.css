@@ -55,14 +55,43 @@ p { margin: 0; }
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-/* ---------- Ornament: tiled crown across the top of every page ---------- */
-.crown { width: 100%; line-height: 0; }
-.crown svg { width: 100%; height: 66px; display: block; }
+/* ---------- Ornament: the flyer's tiled crown across the top of every page ---------- */
+.crown { max-width: var(--max); margin: 0 auto; padding: 10px var(--gutter) 0; line-height: 0; }
+.crown img { width: 100%; height: auto; display: block; }
 .ribbon {
   height: 7px;
   background:
     repeating-linear-gradient(90deg, var(--ochre) 0 6px, transparent 6px 15px) center / 100% 2px no-repeat,
     var(--cobalt-deep);
+}
+
+/* ---------- Flyer artwork: lanterns beside the header, bouquets beside the arch ---------- */
+.top { position: relative; }
+.lantern {
+  position: absolute; top: 0;
+  width: clamp(110px, 11vw, 150px); height: auto;
+  pointer-events: none;
+  opacity: 0; animation: lantern-in 1.4s ease .6s forwards;
+}
+.lantern--left { left: max(var(--gutter), calc(50% - var(--max) / 2 + 36px)); }
+.lantern--right { right: max(var(--gutter), calc(50% - var(--max) / 2 + 36px)); }
+@keyframes lantern-in { to { opacity: 1; } }
+.arch-wrap { position: relative; max-width: 1000px; margin: 0 auto; }
+.bouquet {
+  position: absolute; bottom: 0;
+  height: min(560px, 82%); width: auto;
+  pointer-events: none;
+}
+.bouquet--left { left: 0; }
+.bouquet--right { right: 0; }
+.bouquets-mobile { display: none; }
+@media (max-width: 1060px) {
+  .bouquet { height: 420px; }
+}
+@media (max-width: 900px) {
+  .lantern, .bouquet { display: none; }
+  .bouquets-mobile { display: flex; justify-content: center; gap: 18px; margin-top: 34px; }
+  .bouquets-mobile img { height: 220px; width: auto; }
 }
 
 /* ---------- Header ---------- */
@@ -181,7 +210,7 @@ p { margin: 0; }
   margin: 34px auto 0;
   filter: drop-shadow(0 30px 40px rgba(27,35,64,.16));
 }
-.arch-head { width: 100%; height: auto; }
+.arch-head { width: 100%; height: auto; overflow: visible; }
 .arch-fill { fill: var(--paper); }
 .arch-dots { fill: var(--gold); }
 .arch-cusp { fill: none; stroke: var(--gold); stroke-width: 1.6; }
@@ -390,7 +419,7 @@ p { margin: 0; }
   font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-soft);
 }
 .site-footer nav a:hover { color: var(--lapis); }
-.site-footer .crown svg { height: 44px; }
+.site-footer .ribbon { margin-top: 0; }
 
 /* ---------- Reveal (borrowed from the portfolio's intro fade) ---------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
@@ -409,6 +438,8 @@ p { margin: 0; }
   .cards { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
 }
 @media (max-width: 600px) {
+  .crown { padding: 6px 0 0; }
+  .crown img { height: 104px; object-fit: cover; object-position: center top; }
   .site-header { padding-top: 22px; }
   .wordmark { font-size: 29px; }
   .site-nav { gap: 22px; }
