@@ -3,3 +3,10 @@ Ibrahim E. and Asma J.'s Wedding Website.html
 Ibrahim E. and Asma J.'s Wedding Website_files/
 Screenshot*.png
 .DS_Store
+
+# LaTeX proof outputs
+site-text.pdf
+*.aux
+*.log
+*.out
+*.synctex.gz

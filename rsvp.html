@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ibrahim &amp; Asma RSVP</title>
-  <meta name="description" content="RSVP for Ibrahim and Asma's wedding.">
+  <meta name="description" content="RSVP for Ibrahim and Asma&#x27;s wedding.">
   <!-- Keep the site out of search engines -->
   <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e3edff'/%3E%3Cpath d='M32 54 C14 46 10 30 14 14 C24 22 30 34 32 54 Z' fill='%237b8fdc'/%3E%3Cpath d='M32 54 C50 46 54 30 50 14 C40 22 34 34 32 54 Z' fill='%237b8fdc'/%3E%3Cpath d='M32 54 C24 40 24 22 32 6 C40 22 40 40 32 54 Z' fill='%231f4690'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f5f5dc'/%3E%3Cpath d='M32 54 C14 46 10 30 14 14 C24 22 30 34 32 54 Z' fill='%237b8fdc'/%3E%3Cpath d='M32 54 C50 46 54 30 50 14 C40 22 34 34 32 54 Z' fill='%237b8fdc'/%3E%3Cpath d='M32 54 C24 40 24 22 32 6 C40 22 40 40 32 54 Z' fill='%231f4690'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Forum&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Jost:wght@400;500&family=Amiri:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Forum&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Jost:wght@400;500;600&family=Amiri:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="page-rsvp">
@@ -29,10 +29,11 @@
   <p class="caption reveal is-visible">RSVP</p>
   <h1 class="display reveal is-visible">We hope you can join us</h1>
   <div class="rule reveal is-visible"><span class="diamond"></span></div>
-  <p class="lead reveal is-visible" data-delay="1">Friday, December 25, 2026 at 7:00 PM &middot; The Pearl Event Center, Webster, TX.<br>Kindly reply by <strong><span data-text="rsvpDeadline">December 3</span></strong>.</p>
+  <p class="lead reveal is-visible" data-delay="1">Friday, December 25, 2026 at 7:00 PM · The Pearl Event Center, Webster, TX.<br>Kindly reply by <strong><span data-text="rsvpDeadline">December 3</span></strong>.</p>
 
   <!-- On-site form: shown when config.js has rsvpScriptUrl -->
-  <form class="panel rsvp-form reveal is-visible" data-delay="2" id="rsvp-form" novalidate hidden>
+  <form class="panel rsvp-form reveal is-visible" data-delay="2" id="rsvp-form" novalidate hidden
+        data-msg-missing="Please fill in the highlighted fields." data-msg-sending="Sending…" data-msg-failed="Sorry, something went wrong sending your reply. Please try again in a moment.">
     <h2 class="display">Reply online</h2>
     <p class="sub">Please reply once for your party. Each invitation is for up to two guests.</p>
 
@@ -54,10 +55,9 @@
     <div class="only-attending">
       <div class="field">
         <label for="f-guests">Number of guests, including you</label>
-        <select id="f-guests" name="guests">
-          <option>1</option><option>2</option>
-        </select>
+        <select id="f-guests" name="guests" data-max="8"><option>1</option><option>2</option><option disabled hidden>3</option><option disabled hidden>4</option><option disabled hidden>5</option><option disabled hidden>6</option><option disabled hidden>7</option><option disabled hidden>8</option></select>
         <p class="hint">Each invitation covers a maximum of two guests. Thank you for understanding.</p>
+        <label class="check"><input type="checkbox" name="exception" id="f-exception" value="Yes"><span>I have been given an exception for more than two guests</span></label>
       </div>
       <div class="field">
         <label for="f-guestnames">Names of everyone attending</label>
@@ -78,9 +78,9 @@
   </form>
 
   <!-- Thank-you panel, shown after a successful submission -->
-  <div class="panel rsvp-thanks reveal is-visible" id="rsvp-thanks" hidden>
+  <div class="panel rsvp-thanks reveal is-visible" id="rsvp-thanks" hidden data-text-declined="Your reply has been received. We&#x27;ll miss you, and thank you for letting us know.">
     <h2 class="display">Thank you</h2>
-    <p class="sub" id="rsvp-thanks-text">Your reply has been received. We can't wait to celebrate with you.</p>
+    <p class="sub" id="rsvp-thanks-text">Your reply has been received. We can&#x27;t wait to celebrate with you.</p>
     <div class="rule" style="margin-top:22px"><span class="diamond"></span></div>
   </div>
 
@@ -99,7 +99,7 @@
 <footer class="site-footer">
   <div class="inner">
     <div class="wordmark">Ibrahim <span class="amp">&amp;</span> Asma</div>
-    <p class="caption">December 25, 2026 &middot; Webster, Texas</p>
+    <p class="caption">December 25, 2026 · Webster, Texas</p>
     <nav aria-label="Footer">
       <a href="index.html">Home</a>
       <a href="registry.html">Registry</a>

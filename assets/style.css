@@ -3,7 +3,7 @@
    flyer's lapis, gold and Isfahan tile colours for the ornament. */
 
 :root {
-  --sky: #e3edff;
+  --sky: #f5f5dc;
   --sky-light: #d6e3ea;
   --sky-deep: #a9c1d0;
   --paper: #ffffff;
@@ -235,7 +235,7 @@ p { margin: 0; }
     var(--cobalt-deep);
   margin: 0 0;
 }
-.arch-body .caption { margin-bottom: 14px; }
+.arch-body .caption { margin-bottom: 14px; font-weight: 600; color: var(--navy); }
 
 .names { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .names .script {
@@ -498,6 +498,9 @@ p { margin: 0; }
 }
 .field textarea { resize: vertical; min-height: 64px; }
 .field .hint { margin-top: 8px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+.field .check { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; cursor: pointer; }
+.field .check input { width: 16px; height: 16px; margin: 3px 0 0; accent-color: var(--lapis); flex: 0 0 auto; }
+.field .check span { font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink); text-transform: none; letter-spacing: 0; }
 .field input:focus, .field select:focus, .field textarea:focus {
   border-color: var(--lapis); background: #fff;
   box-shadow: 0 0 0 3px rgba(31,70,144,.12);

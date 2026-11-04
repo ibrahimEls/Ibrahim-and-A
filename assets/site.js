@@ -63,23 +63,35 @@
     radios.forEach(function (r) { r.addEventListener("change", syncAttending); });
     syncAttending();
 
+    var exception = form.querySelector("#f-exception");
+    var guestsSel = form.querySelector("#f-guests");
+    function syncException() {
+      var unlocked = exception.checked;
+      Array.prototype.forEach.call(guestsSel.options, function (opt) {
+        if (parseInt(opt.value, 10) > 2) { opt.disabled = !unlocked; opt.hidden = !unlocked; }
+      });
+      if (!unlocked && parseInt(guestsSel.value, 10) > 2) guestsSel.value = "2";
+    }
+    if (exception && guestsSel) { exception.addEventListener("change", syncException); syncException(); }
+
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       form.classList.add("was-validated");
       if (!form.checkValidity()) {
-        status.textContent = "Please fill in the highlighted fields.";
+        status.textContent = form.getAttribute("data-msg-missing") || "Please fill in the highlighted fields.";
         status.classList.add("error");
         var bad = form.querySelector(":invalid");
         if (bad && bad.focus) bad.focus();
         return;
       }
       status.classList.remove("error");
-      status.textContent = "Sending\u2026";
+      status.textContent = form.getAttribute("data-msg-sending") || "Sending\u2026";
       button.disabled = true;
 
       var data = {};
       new FormData(form).forEach(function (v, k) { data[k] = String(v).trim(); });
       if (attendingOnly.hidden) { data.guests = "0"; data.guestNames = ""; }
+      data.exception = exception && exception.checked ? "Yes" : "No";
 
       fetch(url, { method: "POST", body: JSON.stringify(data) })
         .then(function (r) { return r.json(); })
@@ -88,15 +100,15 @@
           form.hidden = true;
           var thanks = document.getElementById("rsvp-thanks");
           var text = document.getElementById("rsvp-thanks-text");
-          if (/declin/i.test(data.attending) && text) {
-            text.textContent = "Your reply has been received. We'll miss you, and thank you for letting us know.";
+          if (/declin/i.test(data.attending) && text && thanks.getAttribute("data-text-declined")) {
+            text.textContent = thanks.getAttribute("data-text-declined");
           }
           thanks.hidden = false;
           thanks.scrollIntoView({ behavior: "smooth", block: "center" });
         })
         .catch(function (err) {
           status.classList.add("error");
-          status.textContent = "Sorry, something went wrong sending your reply. Please try again in a moment.";
+          status.textContent = form.getAttribute("data-msg-failed") || "Sorry, something went wrong sending your reply. Please try again in a moment.";
           button.disabled = false;
           if (window.console) console.error("RSVP submit failed:", err);
         });

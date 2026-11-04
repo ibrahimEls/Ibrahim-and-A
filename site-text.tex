@@ -1,0 +1,154 @@
+% ===========================================================================
+%  Ibrahim & Asma wedding website, editable text source
+%
+%  Every word the site shows lives in this file, in page order. Edit the
+%  text, then run   python3 tools/build_site.py   (or hand the file back)
+%  and index.html, registry.html and rsvp.html are rewritten from it.
+%
+%  Compile with xelatex to see the text laid out page by page as a proof.
+%
+%  Rules:
+%    - Each \command{...} below is one piece of the site. Change the words
+%      inside the braces; do not rename the commands or change how many
+%      brace groups they take.
+%    - Write & as \&  and % as \%  (LaTeX needs it). The site gets a plain &.
+%    - Use \\ inside a brace group for a line break on the page.
+%    - Links (RSVP form, cash fund) and the RSVP deadline stay in config.js.
+%
+%  Command legend, in page order:
+%    \sitename{A}{B}                 the wordmark at the top of every page,
+%                                    shown as "A & B"
+%    \navlabels{..}{..}{..}          the three menu entries: home, registry, rsvp
+%    \footerline{..}                 small line under the wordmark in the footer
+%    \eventdate{YYYY-MM-DD}          the day the countdown counts to
+%    \pagemeta{page}{title}{desc}    browser-tab title and description for
+%                                    index, registry or rsvp
+%    \bismillah{arabic}{english}     top of the arch
+%    \invitationline{..}             caps line above the names
+%    \names{..}{..}                  the two names, first then second
+%    \dateline{day}{num}{time}{month} the date row: FRIDAY | 25 | 7:00 PM, then month
+%    \place{..}                      city line under the date
+%    \countdownlabels{days}{hours}{minutes}{seconds}{d}{h}{min}{s}
+%                                    long labels, then the short ones phones use
+%    \countdowndone{..}              what replaces the countdown on the day
+%    \rsvpbutton{..}                 the button inside the arch
+%    \ayah{arabic}{english}{cite}    the verse band under the arch
+%    \sectionhead{small}{big}        "Join us" / "The details"
+%    \cardwhen{label}{title}{sub}
+%    \cardwhere{label}{venue}{street}{city}{link text}{maps url}
+%    \cardreply{label}{title}{by-word}{link text}   deadline comes from config.js
+%    \giftnote{title}{paragraph}{button}
+%    \registryhead{small}{title}{paragraph}
+%    \registrypanel{title}{sub}{button}{button when no link yet}{fine print}
+%    \rsvphead{small}{title}{event line}{reply-by words}
+%    \rsvpform{title}{sub}
+%    \formfields{name}{contact}{question}{accept}{decline}
+%    \formguests{guests label}{hint under it}{names label}
+%    \formexception{checkbox text}{max guests}   ticking the box unlocks the
+%                                    guest menu up to this many
+%    \formnote{note label}{optional tag}{send button}
+%    \formmessages{missing fields}{sending}{failed}
+%    \thankyou{title}{accepted text}{declined text}
+%    \rsvpfallback{title}{sub}{button}{button when no link yet}{fine print}
+% ===========================================================================
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{fontspec}
+\setmainfont{Baskerville}
+\newfontfamily\arabicfont[Script=Arabic]{Geeza Pro}
+\usepackage{bidi}
+
+\definecolor{lapis}{HTML}{1F4690}
+\definecolor{gold}{HTML}{8A6A2C}
+\definecolor{muted}{HTML}{66737A}
+
+% how each piece is drawn on paper (the website has its own styling)
+\newcommand{\lbl}[1]{{\footnotesize\color{gold}\textsc{#1}}\par}
+\newcommand{\pagehead}[1]{\clearpage\section*{#1}}
+\newcommand{\ar}[1]{{\large\color{lapis}\RL{\arabicfont #1}}\par}
+
+\newcommand{\sitename}[2]{\lbl{wordmark}{\Large\itshape #1 \textcolor{gold}{\&} #2}\par\medskip}
+\newcommand{\navlabels}[3]{\lbl{menu}\textsc{#1 \quad #2 \quad #3}\par\medskip}
+\newcommand{\footerline}[1]{\lbl{footer line}\textsc{\small #1}\par\medskip}
+\newcommand{\eventdate}[1]{\lbl{countdown counts to}\texttt{#1}\par\medskip}
+\newcommand{\pagemeta}[3]{\lbl{browser tab for #1}\textbf{#2}\\ {\color{muted}\small #3}\par\medskip}
+\newcommand{\bismillah}[2]{\lbl{bismillah}\ar{#1}{\itshape\color{muted} #2}\par\medskip}
+\newcommand{\invitationline}[1]{\lbl{invitation line}\textsc{\small #1}\par\medskip}
+\newcommand{\names}[2]{\lbl{names}{\LARGE\textsc{#1}}\\ and\\ {\LARGE\textsc{#2}}\par\medskip}
+\newcommand{\dateline}[4]{\lbl{date row}\textsc{#1} \quad {\Huge\color{gold}#2} \quad \textsc{#3}\\ \textsc{#4}\par\medskip}
+\newcommand{\place}[1]{\lbl{place}#1\par\medskip}
+\newcommand{\countdownlabels}[8]{\lbl{countdown labels}\textsc{\small #1 \ #2 \ #3 \ #4} \quad{\color{muted}phones: \textsc{\small #5 \ #6 \ #7 \ #8}}\par\medskip}
+\newcommand{\countdowndone}[1]{\lbl{on the day}{\itshape #1}\par\medskip}
+\newcommand{\rsvpbutton}[1]{\lbl{button}\colorbox{lapis}{\textcolor{white}{\textsc{\ #1\ }}}\par\medskip}
+\newcommand{\ayah}[3]{\lbl{verse}\ar{#1}{\itshape\color{muted} #2}\\ {\footnotesize\color{gold}\textsc{#3}}\par\medskip}
+\newcommand{\sectionhead}[2]{\lbl{section heading}\textsc{\small #1}\\ {\Large\itshape #2}\par\medskip}
+\newcommand{\cardwhen}[3]{\lbl{card: #1}{\large\itshape #2}\\ {\color{muted}\itshape #3}\par\medskip}
+\newcommand{\cardwhere}[6]{\lbl{card: #1}\textsc{#2}\\ {\color{muted}\itshape #3\\ #4}\\ \textsc{\small\color{lapis}#5}\\ {\tiny\color{muted}\texttt{#6}}\par\medskip}
+\newcommand{\cardreply}[4]{\lbl{card: #1}{\large\itshape #2}\\ {\color{muted}\itshape #3 [deadline from config.js]}\\ \textsc{\small\color{lapis}#4}\par\medskip}
+\newcommand{\giftnote}[3]{\lbl{gift note}{\large\itshape #1}\\ #2\\ \textsc{\small\color{lapis}#3}\par\medskip}
+\newcommand{\registryhead}[3]{\lbl{heading}\textsc{\small #1}\\ {\LARGE\itshape #2}\\ #3\par\medskip}
+\newcommand{\registrypanel}[5]{\lbl{panel}{\large\itshape #1}\\ {\color{muted}\itshape #2}\\ \colorbox{lapis}{\textcolor{white}{\textsc{\ #3\ }}} {\color{muted}\small(no link yet: #4)}\\ {\small #5}\par\medskip}
+\newcommand{\rsvphead}[4]{\lbl{heading}\textsc{\small #1}\\ {\LARGE\itshape #2}\\ #3\\ #4 \textbf{[deadline from config.js]}.\par\medskip}
+\newcommand{\rsvpform}[2]{\lbl{form}{\large\itshape #1}\\ {\color{muted}\itshape #2}\par\medskip}
+\newcommand{\formfields}[5]{\lbl{form fields}\textsc{\small #1}\\ \textsc{\small #2}\\ \textsc{\small #3}: \fbox{\textsc{\small #4}} \fbox{\textsc{\small #5}}\par\medskip}
+\newcommand{\formexception}[2]{\lbl{exception checkbox}[\,\,] #1 {\small\color{muted}(unlocks up to #2 guests)}\par\medskip}
+\newcommand{\formguests}[3]{\lbl{guest fields}\textsc{\small #1}\\ {\small\color{muted}#2}\\ \textsc{\small #3}\par\medskip}
+\newcommand{\formnote}[3]{\lbl{note and button}\textsc{\small #1} {\small\color{muted}#2}\\ \colorbox{lapis}{\textcolor{white}{\textsc{\ #3\ }}}\par\medskip}
+\newcommand{\formmessages}[3]{\lbl{form messages}{\small #1}\\ {\small #2}\\ {\small #3}\par\medskip}
+\newcommand{\thankyou}[3]{\lbl{after sending}{\large\itshape #1}\\ {\color{muted}\itshape #2}\\ {\color{muted}\itshape #3}\par\medskip}
+\newcommand{\rsvpfallback}[5]{\lbl{fallback panel (Google Form link)}{\large\itshape #1}\\ {\color{muted}\itshape #2}\\ \colorbox{lapis}{\textcolor{white}{\textsc{\ #3\ }}} {\color{muted}\small(no link yet: #4)}\\ {\small #5}\par\medskip}
+
+\begin{document}
+
+\section*{Every page}
+
+\sitename{Ibrahim}{Asma}
+\navlabels{Home}{Registry}{RSVP}
+\footerline{December 25, 2026 · Webster, Texas}
+\eventdate{2026-12-25}
+
+\pagemeta{index}{Ibrahim \& Asma}{Ibrahim and Asma's wedding, December 25, 2026.}
+\pagemeta{registry}{Ibrahim \& Asma Registry}{Gift information for Ibrahim and Asma's wedding.}
+\pagemeta{rsvp}{Ibrahim \& Asma RSVP}{RSVP for Ibrahim and Asma's wedding.}
+
+\pagehead{Home}
+
+\bismillah{بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ}{In the name of God, the Most Gracious, the Most Merciful}
+\invitationline{The Nikah \& wedding ceremony of}
+\names{Ibrahim Elsharkawy}{Asma Jaseem}
+\dateline{Friday}{25}{7:00 PM}{December 2026}
+\place{Houston, TX}
+\countdownlabels{days}{hours}{minutes}{seconds}{d}{h}{min}{s}
+\countdowndone{Today is the day!}
+\rsvpbutton{RSVP}
+
+\ayah{رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا}{Lord, bless us with spouses and offspring who will be the coolness of our eyes, and make us models for the righteous}{Al-Furqan 25:74}
+
+\sectionhead{Join us}{The details}
+\cardwhen{When}{Friday, December 25}{2026 · 7:00 in the evening}
+\cardwhere{Where}{The Pearl Event Center}{951 Tristar Dr}{Webster, TX 77598}{Get directions}{https://www.google.com/maps/search/?api=1\&query=The+Pearl+Event+Center+951+Tristar+Dr+Webster+TX+77598}
+\cardreply{Reply}{Kindly RSVP}{by}{RSVP here}
+
+\giftnote{No boxed gifts, please}{Your presence is the greatest gift. If you would like to give something, you can find the details on our registry page.}{Registry}
+
+\pagehead{Registry}
+
+\registryhead{Registry}{Your presence is our gift}{We kindly ask for no boxed gifts. If you would like to honour us with a gift, a contribution to our newlywed fund would be warmly appreciated and will help us begin our life together.}
+\registrypanel{Newlywed fund}{A gift toward our new home and our first adventures together.}{Give a gift}{Details coming soon}{Thank you for your love and generosity.}
+
+\pagehead{RSVP}
+
+\rsvphead{RSVP}{We hope you can join us}{Friday, December 25, 2026 at 7:00 PM · The Pearl Event Center, Webster, TX.}{Kindly reply by}
+\rsvpform{Reply online}{Please reply once for your party. Each invitation is for up to two guests.}
+\formfields{Your name}{Email or phone}{Will you be joining us?}{Joyfully accepts}{Regretfully declines}
+\formguests{Number of guests, including you}{Each invitation covers a maximum of two guests. Thank you for understanding.}{Names of everyone attending}
+\formexception{I have been given an exception for more than two guests}{8}
+\formnote{A note for the couple}{(optional)}{Send RSVP}
+\formmessages{Please fill in the highlighted fields.}{Sending…}{Sorry, something went wrong sending your reply. Please try again in a moment.}
+\thankyou{Thank you}{Your reply has been received. We can't wait to celebrate with you.}{Your reply has been received. We'll miss you, and thank you for letting us know.}
+\rsvpfallback{Reply online}{The form takes about a minute. Please reply for everyone in your party.}{Open the RSVP form}{Form coming soon}{The form opens in a new tab.}
+
+\end{document}

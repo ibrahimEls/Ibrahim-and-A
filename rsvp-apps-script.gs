@@ -16,7 +16,10 @@
 var SHEET_NAME = 'RSVPs';
 var NOTIFY_EMAIL = '';   // e.g. 'you@example.com' to get an email for each RSVP; leave '' for none
 
-var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Guest names', 'Message'];
+var MAX_GUESTS = 2;             // per invitation
+var MAX_WITH_EXCEPTION = 8;     // when the guest ticks the exception box
+
+var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Exception', 'Guest names', 'Message'];
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -27,18 +30,20 @@ function doPost(e) {
 
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(HEADERS);
-      sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+    if (sheet.getLastRow() === 0 || sheet.getLastColumn() < HEADERS.length) {
+      sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
       sheet.setFrozenRows(1);
     }
-    var guests = Math.min(2, Math.max(0, parseInt(data.guests, 10) || 0)); // two per invitation
+    var exception = /^yes$/i.test(String(data.exception || '')) ? 'Yes' : 'No';
+    var cap = exception === 'Yes' ? MAX_WITH_EXCEPTION : MAX_GUESTS;
+    var guests = Math.min(cap, Math.max(0, parseInt(data.guests, 10) || 0));
     var row = [
       new Date(),
       clean_(data.name),
       clean_(data.contact),
       clean_(data.attending),
       guests,
+      exception,
       clean_(data.guestNames),
       clean_(data.message)
     ];
