@@ -111,13 +111,13 @@ p { margin: 0; }
   letter-spacing: .01em;
 }
 .wordmark .amp { color: var(--gold); font-weight: 400; margin: 0 .12em; }
-.site-nav { display: flex; gap: 44px; }
+.site-nav { display: flex; gap: 38px; }
 .site-nav a {
   position: relative;
   font-family: var(--font-sans);
-  font-size: 19.5px;
+  font-size: 16.25px;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 4.25px;
   text-transform: uppercase;
   color: var(--ink);
   padding: 6px 2px 12px;
@@ -463,8 +463,8 @@ body:has(dialog.modal[open]) { overflow: hidden; }
 @media (max-width: 600px) {
   .site-header { padding-top: 22px; }
   .wordmark { font-size: 36px; }
-  .site-nav { gap: 26px; }
-  .site-nav a { font-size: 18px; letter-spacing: 3.6px; }
+  .site-nav { gap: 24px; }
+  .site-nav a { font-size: 15px; letter-spacing: 3.25px; }
   .hero { padding-bottom: 54px; }
   .hero .bismillah { font-size: 22px; }
   .hero .bismillah-translation { font-size: 15px; margin-bottom: 16px; }
