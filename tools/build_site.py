@@ -99,7 +99,7 @@ def load():
 
 # ---------------------------------------------------------------- templates
 FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
-           "%3Crect width='64' height='64' fill='%23f5f5dc'/%3E"
+           "%3Crect width='64' height='64' fill='%23eaf0fc'/%3E"
            "%3Cpath d='M32 54 C14 46 10 30 14 14 C24 22 30 34 32 54 Z' fill='%237b8fdc'/%3E"
            "%3Cpath d='M32 54 C50 46 54 30 50 14 C40 22 34 34 32 54 Z' fill='%237b8fdc'/%3E"
            "%3Cpath d='M32 54 C24 40 24 22 32 6 C40 22 40 40 32 54 Z' fill='%231f4690'/%3E%3C/svg%3E")
