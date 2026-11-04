@@ -57,7 +57,7 @@ p { margin: 0; }
 
 /* ---------- Ornament: the flyer's tiled crown across the top of every page ---------- */
 .crown { width: 100%; line-height: 0; }
-.crown img { width: 100%; height: clamp(104px, 12.5vw, 180px); display: block; }
+.crown img { width: 100%; height: clamp(91px, 10.9vw, 158px); display: block; }
 .ribbon {
   height: 7px;
   background:
@@ -108,7 +108,7 @@ p { margin: 0; }
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 500;
-  font-size: 34px;
+  font-size: 42px;
   line-height: 1.2;
   color: var(--navy);
   letter-spacing: .01em;
@@ -439,7 +439,7 @@ p { margin: 0; }
 }
 @media (max-width: 600px) {
   .site-header { padding-top: 22px; }
-  .wordmark { font-size: 29px; }
+  .wordmark { font-size: 36px; }
   .site-nav { gap: 22px; }
   .site-nav a { font-size: 12px; letter-spacing: 2.6px; }
   .hero { padding-bottom: 54px; }
