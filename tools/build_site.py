@@ -266,7 +266,7 @@ def page_index(T):
       <article class="card reveal" data-delay="3">
         <p class="caption">{r_lbl}</p>
         <h3 class="display">{r_title}</h3>
-        <p class="sub">{r_by} <span data-text="rsvpDeadline">December 3</span></p>
+        <p class="sub">{r_by} <span data-text="rsvpDeadline">November 20</span></p>
         <a class="link" href="rsvp.html">{r_link}</a>
       </article>
     </div>
@@ -339,7 +339,7 @@ def page_rsvp(T):
   <p class="caption reveal is-visible">{small}</p>
   <h1 class="display reveal is-visible">{big}</h1>
   <div class="rule reveal is-visible"><span class="diamond"></span></div>
-  <p class="lead reveal is-visible" data-delay="1">{event}<br>{replyby} <strong><span data-text="rsvpDeadline">December 3</span></strong>.</p>
+  <p class="lead reveal is-visible" data-delay="1">{event}<br>{replyby} <strong><span data-text="rsvpDeadline">November 20</span></strong>.</p>
 
   <!-- On-site form: shown when config.js has rsvpScriptUrl -->
   <form class="panel rsvp-form reveal is-visible" data-delay="2" id="rsvp-form" novalidate hidden
