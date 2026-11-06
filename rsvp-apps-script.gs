@@ -17,7 +17,7 @@ var SHEET_NAME = 'RSVPs';
 var NOTIFY_EMAIL = '';   // e.g. 'you@example.com' to get an email for each RSVP; leave '' for none
 
 var MAX_GUESTS = 2;             // per invitation
-var MAX_WITH_EXCEPTION = 8;     // when the guest ticks the exception box
+var MAX_WITH_EXCEPTION = 10;    // when the guest ticks the exception box
 
 var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Exception', 'Guest names', 'Message'];
 
