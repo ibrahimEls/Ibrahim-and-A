@@ -380,9 +380,6 @@ def page_rsvp(T):
       <textarea id="f-message" name="message" rows="3"></textarea>
     </div>
 
-    <!-- honeypot: humans never see this -->
-    <div class="hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
-
     <button class="btn" type="submit">{l_send}</button>
     <p class="form-status" role="status" aria-live="polite"></p>
   </form>

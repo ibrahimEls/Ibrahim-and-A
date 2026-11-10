@@ -89,14 +89,30 @@
     }
     if (exception && guestsSel) { exception.addEventListener("change", syncException); syncException(); }
 
+    function missingList() {
+      var names = [];
+      form.querySelectorAll(":invalid").forEach(function (el) {
+        var lab = el.id ? form.querySelector("label[for=" + el.id + "]") : null;
+        if (!lab && el.name === "attending") lab = form.querySelector(".choice legend");
+        if (lab) names.push(lab.textContent.replace(/\(optional\)/i, "").trim());
+      });
+      return names.filter(function (n, i, a) { return n && a.indexOf(n) === i; });
+    }
+
+    function postJson(url, body, opts) {
+      return fetch(url, Object.assign({ method: "POST", body: body, redirect: "follow", credentials: "omit" }, opts || {}));
+    }
+
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       form.classList.add("was-validated");
       if (!form.checkValidity()) {
-        status.textContent = form.getAttribute("data-msg-missing") || "Please fill in the highlighted fields.";
+        var missing = missingList();
+        status.textContent = (form.getAttribute("data-msg-missing") || "Please fill in the highlighted fields.") +
+          (missing.length ? " (" + missing.join(", ") + ")" : "");
         status.classList.add("error");
         var bad = form.querySelector(":invalid");
-        if (bad && bad.focus) bad.focus();
+        if (bad) { if (bad.scrollIntoView) bad.scrollIntoView({ behavior: "smooth", block: "center" }); if (bad.focus) bad.focus({ preventScroll: true }); }
         return;
       }
       status.classList.remove("error");
@@ -107,20 +123,50 @@
       new FormData(form).forEach(function (v, k) { data[k] = String(v).trim(); });
       if (attendingOnly.hidden) { data.guests = "0"; data.guestNames = ""; }
       data.exception = exception && exception.checked ? "Yes" : "No";
+      data.submissionId = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+      var body = JSON.stringify(data);
 
-      fetch(url, { method: "POST", body: JSON.stringify(data) })
-        .then(function (r) { return r.json(); })
-        .then(function (res) {
+      function showThanks() {
+        form.hidden = true;
+        var thanks = document.getElementById("rsvp-thanks");
+        var text = document.getElementById("rsvp-thanks-text");
+        if (isDeclining() && text && thanks.getAttribute("data-text-declined")) {
+          text.textContent = thanks.getAttribute("data-text-declined");
+        }
+        thanks.hidden = false;
+        thanks.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      function attempt() {
+        return postJson(url, body).then(function (r) { return r.json(); }).then(function (res) {
           if (!res || res.ok !== true) throw new Error(res && res.error ? res.error : "Unexpected reply");
-          form.hidden = true;
-          var thanks = document.getElementById("rsvp-thanks");
-          var text = document.getElementById("rsvp-thanks-text");
-          if (isDeclining() && text && thanks.getAttribute("data-text-declined")) {
-            text.textContent = thanks.getAttribute("data-text-declined");
-          }
-          thanks.hidden = false;
-          thanks.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+      function wait(ms) { return new Promise(function (ok) { setTimeout(ok, ms); }); }
+
+      attempt()
+        .catch(function (err1) {
+          /* A network-type failure usually means the request WAS delivered but the
+             browser refused to read the reply, so retrying would duplicate the row:
+             go straight to the fallback. Other failures (the script said no, or
+             sent something unexpected) get one more try after a short pause. */
+          var networkFail = err1 instanceof TypeError;
+          return (networkFail ? Promise.reject(err1) : wait(1500).then(attempt)).catch(function (err2) {
+            /* last resort: send without reading the reply. The request is still
+               delivered to the sheet even when the browser blocks the cross-origin
+               read. We note the browser so the problem can be traced. */
+            var why = String((err2 && err2.message) || err2 || "");
+            var noted = Object.assign({}, data, { message: (data.message ? data.message + " " : "") +
+              "[sent via fallback: " + why.slice(0, 80) + " | " + navigator.userAgent.slice(0, 120) + "]" });
+            var fallbackBody = JSON.stringify(noted);
+            return postJson(url, fallbackBody, { mode: "no-cors", keepalive: true }).then(function () {
+              return wait(400);
+            }).catch(function () {
+              if (navigator.sendBeacon && navigator.sendBeacon(url, fallbackBody)) return wait(400);
+              throw err2;
+            });
+          });
         })
+        .then(showThanks)
         .catch(function (err) {
           status.classList.add("error");
           status.textContent = form.getAttribute("data-msg-failed") || "Sorry, something went wrong sending your reply. Please try again in a moment.";

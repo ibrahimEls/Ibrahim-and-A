@@ -19,7 +19,7 @@ var NOTIFY_EMAIL = '';   // e.g. 'you@example.com' to get an email for each RSVP
 var MAX_GUESTS = 2;             // per invitation
 var MAX_WITH_EXCEPTION = 10;    // when the guest ticks the exception box
 
-var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Exception', 'Guest names', 'Message'];
+var HEADERS = ['Timestamp', 'Name', 'Email / phone', 'Attending', 'Guests', 'Exception', 'Guest names', 'Message', 'Submission ID'];
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -34,6 +34,17 @@ function doPost(e) {
       sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
       sheet.setFrozenRows(1);
     }
+    // The site sends each reply with a unique id. Some browsers deliver the same
+    // reply twice (once blind, once readable); skip a row whose id is already here.
+    var sid = clean_(data.submissionId || '');
+    if (sid) {
+      var last = sheet.getLastRow();
+      if (last > 1) {
+        var from = Math.max(2, last - 199);
+        var ids = sheet.getRange(from, HEADERS.length, last - from + 1, 1).getValues();
+        for (var i = 0; i < ids.length; i++) { if (String(ids[i][0]) === sid) return respond_({ ok: true, duplicate: true }); }
+      }
+    }
     var exception = /^yes$/i.test(String(data.exception || '')) ? 'Yes' : 'No';
     var cap = exception === 'Yes' ? MAX_WITH_EXCEPTION : MAX_GUESTS;
     var guests = Math.min(cap, Math.max(0, parseInt(data.guests, 10) || 0));
@@ -45,7 +56,8 @@ function doPost(e) {
       guests,
       exception,
       clean_(data.guestNames),
-      clean_(data.message)
+      clean_(data.message),
+      sid
     ];
     sheet.appendRow(row);
 
