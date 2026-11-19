@@ -21,3 +21,7 @@ which rewrites the three HTML pages. Commit and push. `xelatex site-text.tex` ma
 - `robots.txt` + `<meta name="robots" content="noindex">` keep the site out of search engines
 
 To change a link, edit `config.js`, commit and push. GitHub Pages redeploys in about a minute.
+
+## Toronto edition
+
+`/toronto/` is a second copy of the three pages for the July 4, 2027 event. It is not linked from the main site. Its words live in `site-text-toronto.tex`, its links and deadline in `toronto/config.js`, and the same `python3 tools/build_site.py` rebuilds both editions. Its RSVPs go to the "RSVPs Toronto" tab of the same Google Sheet.

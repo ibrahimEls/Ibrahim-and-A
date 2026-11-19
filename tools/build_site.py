@@ -9,6 +9,13 @@ import html, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEX = os.path.join(ROOT, "site-text.tex")
+
+# Each edition: its text source, output folder, how pages reach the shared
+# assets, and the deadline baked in as a default (config.js overrides it).
+SITES = [
+    {"tex": "site-text.tex",         "out": "",        "prefix": "",    "deadline": "November 25"},
+    {"tex": "site-text-toronto.tex", "out": "toronto", "prefix": "../", "deadline": "June 4"},
+]
 ARCH = os.path.join(ROOT, "tools", "arch.svg.html")
 
 # ---------------------------------------------------------------- tex parsing
@@ -79,8 +86,8 @@ def tex_to_html(s, raw=False):
     s = s.replace("\0BR\0", "<br>").replace("\0I\0", "<em>").replace("\0/I\0", "</em>")
     return s
 
-def load():
-    body = read_body(TEX)
+def load(tex=TEX):
+    body = read_body(tex)
     found = collect(body, ARITY)
     T = {}
     for name, n in ARITY.items():
@@ -406,12 +413,19 @@ def page_rsvp(T):
 {footer(T)}'''
 
 def main():
-    T = load()
-    for name, fn in (("index.html", page_index), ("registry.html", page_registry), ("rsvp.html", page_rsvp)):
-        out = fn(T)
-        with open(os.path.join(ROOT, name), "w", encoding="utf-8") as f:
-            f.write(out)
-        print("wrote", name, len(out), "bytes")
+    for site in SITES:
+        T = load(os.path.join(ROOT, site["tex"]))
+        outdir = os.path.join(ROOT, site["out"])
+        os.makedirs(outdir, exist_ok=True)
+        for name, fn in (("index.html", page_index), ("registry.html", page_registry), ("rsvp.html", page_rsvp)):
+            out = fn(T)
+            if site["prefix"]:   # shared art, styles and script live one level up
+                out = re.sub(r'(src|href)="assets/', r'\1="' + site["prefix"] + 'assets/', out)
+            out = out.replace('<span data-text="rsvpDeadline">November 25</span>',
+                              '<span data-text="rsvpDeadline">%s</span>' % site["deadline"])
+            with open(os.path.join(outdir, name), "w", encoding="utf-8") as f:
+                f.write(out)
+            print("wrote", os.path.join(site["out"], name), len(out), "bytes")
 
 if __name__ == "__main__":
     main()

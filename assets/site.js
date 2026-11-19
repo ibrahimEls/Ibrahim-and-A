@@ -123,6 +123,7 @@
       new FormData(form).forEach(function (v, k) { data[k] = String(v).trim(); });
       if (attendingOnly.hidden) { data.guests = "0"; data.guestNames = ""; }
       data.exception = exception && exception.checked ? "Yes" : "No";
+      if (cfg.rsvpSheet) data.sheet = cfg.rsvpSheet;
       data.submissionId = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
       var body = JSON.stringify(data);
 

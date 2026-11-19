@@ -13,7 +13,8 @@
  * If you ever edit this script: Deploy > Manage deployments > edit > New version.
  */
 
-var SHEET_NAME = 'RSVPs';
+var SHEET_NAME = 'RSVPs';                      // Houston replies (the default)
+var SHEETS = { toronto: 'RSVPs Toronto' };     // other editions: key sent by the site -> tab name
 var NOTIFY_EMAIL = '';   // e.g. 'you@example.com' to get an email for each RSVP; leave '' for none
 
 var MAX_GUESTS = 2;             // per invitation
@@ -29,7 +30,9 @@ function doPost(e) {
     if (data.website) return respond_({ ok: true }); // honeypot filled in: silently ignore bots
 
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+    var key = String(data.sheet || '').toLowerCase();
+    var tab = Object.prototype.hasOwnProperty.call(SHEETS, key) ? SHEETS[key] : SHEET_NAME;
+    var sheet = ss.getSheetByName(tab) || ss.insertSheet(tab);
     if (sheet.getLastRow() === 0 || sheet.getLastColumn() < HEADERS.length) {
       sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
       sheet.setFrozenRows(1);
@@ -77,7 +80,7 @@ function doPost(e) {
 }
 
 function doGet() {
-  return respond_({ ok: true, message: 'RSVP endpoint is live.' });
+  return respond_({ ok: true, message: 'RSVP endpoint is live.', version: 4, tabs: [SHEET_NAME].concat(Object.keys(SHEETS).map(function (k) { return SHEETS[k]; })) });
 }
 
 function parseBody_(e) {
