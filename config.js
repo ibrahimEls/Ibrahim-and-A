@@ -18,5 +18,5 @@ window.WEDDING_CONFIG = {
   cashFundUrl: "",
 
   /* RSVP deadline shown on the site. */
-  rsvpDeadline: "November 20"
+  rsvpDeadline: "November 25"
 };
